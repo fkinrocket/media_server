@@ -8,9 +8,14 @@
 6. Configure qbittorrent, radarr, sonarr and plex
 7. check my youtube video
 
-RADARR+SONARR CONFIG
-![Screenshot 2025-02-24 at 21 49 48](https://github.com/user-attachments/assets/90abb194-0295-487a-8477-9731daf9d632)
-![Screenshot 2025-02-24 at 21 50 29](https://github.com/user-attachments/assets/96351f76-fc8a-424b-bedc-19c1e093e4ad)
+## RADARR+SONARR CONFIG
+Settings -> Media Management: /data/TVSHOWS/Shows
+Settings -> Download Clients:
+
+Host -> IP Address of qbittorrent
+Remote Path -> /data/{ MOVIES | SHOWS }/Download/
+Local Path  -> /data/{ MOVIES | SHOWS }/Download/
+* MOVIES for radarr | SHOWS for sonarr
 
 
 
