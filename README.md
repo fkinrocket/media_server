@@ -8,6 +8,12 @@
 6. Configure qbittorrent, radarr, sonarr and plex
 7. check my youtube video
 
+RADARR+SONARR CONFIG
+![Screenshot 2025-02-24 at 21 49 48](https://github.com/user-attachments/assets/90abb194-0295-487a-8477-9731daf9d632)
+![Screenshot 2025-02-24 at 21 50 29](https://github.com/user-attachments/assets/96351f76-fc8a-424b-bedc-19c1e093e4ad)
+
+
+
 There is also a script that will monitor deleted file either from plex or from torrent and will remove the hardlinks or original files if hardlinks are removed.
 Consider running it in crontab at a time when you you dont download any movies as they might be deleted.
 I usually run it @5:00 AM once a week.
