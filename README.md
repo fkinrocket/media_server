@@ -1,6 +1,12 @@
+## How to
+
 1. Clone The Repository
 2. chmod +x config.sh
 3. ./config.sh and add the requested information
+4. chmod +x deploy_media_server.sh
+5. ./deploy_media_server.sh
+6. Configure qbittorrent, radarr, sonarr and plex
+7. check my youtube video
 
 There is also a script that will monitor deleted file either from plex or from torrent and will remove the hardlinks or original files if hardlinks are removed.
 Consider running it in crontab at a time when you you dont download any movies as they might be deleted.
