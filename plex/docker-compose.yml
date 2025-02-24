@@ -1,18 +1,1 @@
 
----
-services:
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
-    network_mode: host
-    environment:
-      - PUID=0
-      - PGID=0
-      - TZ=Europe/Bucharest
-      - VERSION=docker
-      - PLEX_CLAIM=
-    volumes:
-      - ./config:/config
-    restart: unless-stopped
-    devices:
-      - /dev/dri:/dev/dri
