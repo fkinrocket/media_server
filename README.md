@@ -9,5 +9,6 @@ I usually run it @5:00 AM once a week.
 
 ## 💖 Support Me
 If you like my work and want to support me, you can donate via PayPal:
-[![Donate](https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png)](https://www.paypal.com/paypalme/mztnw)
-
+<a href="https://www.paypal.com/paypalme/mztnw" target="_blank">
+    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" width="120" alt="Donate via PayPal">
+</a>
