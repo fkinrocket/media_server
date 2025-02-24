@@ -1,0 +1,13 @@
+services:
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000                # Change to your user ID
+      - PGID=1000                # Change to your group ID
+      - TZ=Etc/UTC               # Change to your timezone, e.g., Europe/London
+    volumes:
+      - ./config:/config         # Stores Prowlarr config in the current directory
+    ports:
+      - 9696:9696                # Prowlarr's web UI port
+    restart: unless-stopped

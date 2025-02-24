@@ -1,0 +1,14 @@
+---
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - TZ=urope/Bucharest
+      - PUID=0
+      - PGID=0
+    volumes:
+      - ./config:/config
+    ports:
+      - 7878:7878
+    restart: unless-stopped

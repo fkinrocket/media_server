@@ -1,0 +1,15 @@
+
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    restart: unless-stopped
+    ports:
+      - "8181:80"
+    volumes:
+      - ./config:/config
+    environment:
+      - PUID=0
+      - PGID=0
+      - ADMIN_USER=admin
+      - ADMIN_PASSWORD=
