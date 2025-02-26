@@ -2,12 +2,12 @@
 
 # Directories containing docker-compose.yml
 DIRECTORIES=(
-    "/opt/plex"
-    "/opt/qbittorrent"
-    "/opt/radarr"
-    "/opt/sonarr"
-    "/opt/overseer"
-    "/opt/filebrowser"
+    "/opt/media_server/plex"
+    "/opt/media_server/qbittorrent"
+    "/opt/media_server/radarr"
+    "/opt/media_server/sonarr"
+    "/opt/media_server/overseer"
+    "/opt/media_server/filebrowser"
 )
 
 # Loop through each directory
