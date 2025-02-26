@@ -42,50 +42,42 @@ find "$root_dir" -mindepth 1 -maxdepth 1 -type d | while read -r service_folder;
     # Determine the service name by checking the folder name
     service_name=$(basename "$service_folder")
 
-    # Define volume paths for each service
-    case "$service_name" in
-        "plex" | "qbittorrent")
-            new_volumes="      - $media_path:/media"
-            ;;
-        "radarr")
-            new_volumes="      - $media_path/MOVIES/Movies:/data/MOVIES"
-            ;;
-        "sonarr")
-            new_volumes="      - $media_path/TVSHOWS/TVShows:/data/TVSHOWS"
-            ;;
-        "filebrowser")
-            new_env="      - ADMIN_USER=$filebrowser_user\n      - ADMIN_PASSWORD=$filebrowser_password"
-            ;;
-        *)
-            echo "⚠️ Skipping $service_folder (not a targeted service: $service_name)"
-            continue
-            ;;
-    esac
-
     echo "Processing: $compose_file"
 
     if [[ "$service_name" == "plex" ]]; then
-        # Modify PLEX_CLAIM
-        sed -i "s|PLEX_CLAIM=.*|PLEX_CLAIM=$plex_claim|" "$compose_file"
-
-        # Configure Plex for the selected GPU
+        cat > "$compose_file" <<EOL
+version: '3.8'
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Bucharest
+      - VERSION=docker
+      - PLEX_CLAIM=$plex_claim
+EOL
         if [[ "$gpu_choice" == "1" ]]; then
-            # Intel/AMD
-            sed -i "/services:/a\  plex:\n    image: lscr.io/linuxserver/plex:latest\n    container_name: plex\n    network_mode: host\n    environment:\n      - PUID=0\n      - PGID=0\n      - TZ=Europe/Bucharest\n      - VERSION=docker\n      - PLEX_CLAIM=$plex_claim\n    volumes:\n      - ./config:/config\n    restart: unless-stopped\n    devices:\n      - /dev/dri:/dev/dri" "$compose_file"
+            echo "      - /dev/dri:/dev/dri" >> "$compose_file"
         elif [[ "$gpu_choice" == "2" ]]; then
-            # NVIDIA
-            sed -i "/services:/a\  plex:\n    image: lscr.io/linuxserver/plex:latest\n    container_name: plex\n    network_mode: host\n    environment:\n      - PUID=0\n      - PGID=0\n      - TZ=Europe/Bucharest\n      - VERSION=docker\n      - PLEX_CLAIM=$plex_claim\n      - NVIDIA_VISIBLE_DEVICES=all\n      - NVIDIA_DRIVER_CAPABILITIES=all\n    volumes:\n      - ./config:/config\n    restart: unless-stopped\n    runtime: nvidia" "$compose_file"
+            cat >> "$compose_file" <<EOL
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    runtime: nvidia
+EOL
         fi
+        cat >> "$compose_file" <<EOL
+    volumes:
+      - $media_path:/media
+      - ./config:/config
+    restart: unless-stopped
+EOL
     fi
 
     if [[ "$service_name" == "filebrowser" ]]; then
-        sed -i "/environment:/a$new_env" "$compose_file"
-    fi
-
-    if grep -q "volumes:" "$compose_file"; then
-        sed -i "/volumes:/a\\$new_volumes" "$compose_file"
-    else
-        sed -i "/services:/a\  volumes:\n$new_volumes" "$compose_file"
+        sed -i "/environment:/a\      - ADMIN_USER=$filebrowser_user\n      - ADMIN_PASSWORD=$filebrowser_password" "$compose_file"
     fi
 
     echo "✅ Updated: $compose_file"
