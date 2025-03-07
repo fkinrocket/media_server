@@ -80,6 +80,12 @@ EOL
         sed -i "/environment:/a\      - ADMIN_USER=$filebrowser_user\n      - ADMIN_PASSWORD=$filebrowser_password" "$compose_file"
     fi
 
+    if [[ "$service_name" == "sonarr" || "$service_name" == "radarr" || "$service_name" == "qbittorrent" ]]; then
+        if ! grep -q "$media_path:/media" "$compose_file"; then
+            sed -i "/volumes:/a\      - $media_path:/media" "$compose_file"
+        fi
+    fi
+
     echo "✅ Updated: $compose_file"
 done
 
