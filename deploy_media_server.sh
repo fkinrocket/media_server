@@ -8,6 +8,7 @@ DIRECTORIES=(
     "/opt/media_server/sonarr"
     "/opt/media_server/overseer"
     "/opt/media_server/filebrowser"
+    "/opt/media_server/prowlarr"
 )
 
 # Loop through each directory
